@@ -10,6 +10,10 @@ a {
 .rem_float { 
     clear:both;
 }
+#chat-area, #messageForm {
+  margin: 0 auto;
+  width: 100px;
+}
 
 /* CSS talk bubble */
 .talk-bubble {
