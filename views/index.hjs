@@ -13,13 +13,17 @@
 
   </head>
   <body>
-    <div id="chat-box" class=".container">
+    <div id="chat-box" class=".container .col-md-6">
       <div id="chat-area" class=".container scroll"></div>
       <form id="messageForm">
             <textarea placeholder="Enter message" id="message" rows="2" cols="50"></textarea>
             <br>
             <input class=".btn .btn-primary" type="submit" value="Send Message">
       </form>
+    </div>
+    <div class=".col-md-6">
+      <h2 id="activeUsers" style="padding-bottom:30px;">Connected Users</h2>
+      <div id="users"></div>
     </div>
     <script>
       document.addEventListener("DOMContentLoaded", function(event) { 
@@ -49,9 +53,12 @@
       }); 
       
       function printUsers(users){
-        var $users = $("#users"); 
+        var $users = $("#users");
+        var $numUsers = $("#activeUsers");
+        $numUsers.text("Connected Users: " + users.length);
+        $users.text("");
         for (i = 0; i < users.length; i++) { 
-          $users.replaceWith('<li>'+users[i]+'</li>');
+          $users.append('<li>'+users[i]+'</li>');
         }
       }
     </script>
