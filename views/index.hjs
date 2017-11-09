@@ -11,15 +11,15 @@
     <div id="chat-area"></div>
     <form id="messageForm">
       <label>Enter Message</label>
-      <textarea id="message"></textarea>
+      <textarea id="message" rows="2" cols="50"></textarea>
       <br>
       <input type="submit" value="Send Message">
     </form>
     <script>
+    
       document.addEventListener("DOMContentLoaded", function(event) { 
-          //alert("hurrah");
           var socket = io.connect(); 
-          
+          var logs = [];
           var $messageForm = $("#messageForm"); 
           var $message = $("#message"); 
           var $chat = $("#chat-area"); 
@@ -27,11 +27,17 @@
           $messageForm.submit(function(e) {
               e.preventDefault(); 
               socket.emit('send message', $message.val()); 
-              $message.val(''); 
+              $message.val('');
           }); 
           
           socket.on('new message', function(data) {
-            $chat.append('<div>' + data.msg + '</div>'); 
+            var sessionId = socket.io.engine.id;
+            console.log('Connected ' + sessionId);
+            socket.emit('newUser', {id: sessionId, name: $('#name').val()});
+            
+            $chat.append('<div class="talk-bubble tri-right round btm-right"> <div id="name">' + data.name + '</div><div class="talktext">' + data.msg + '</div> </div>');
+            $chat.append('<div class = "rem_float"></div>')
+            logs.push(data.msg);
           }); 
       }); 
     </script>

@@ -31,10 +31,11 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-
 io.sockets.on('connection', function(socket) {
   connections.push(socket); 
-  console.log('Connected: %s sockets connected', connections.length); 
+  socket.nickname = "anon" + connections.length;
+  console.log(socket.nickname);
+  console.log('Connected: %s sockets connected\n\n', connections.length); 
 
   socket.on("disconnect", function(data) {
      connections.splice(connections.indexOf(socket), 1); 
@@ -42,8 +43,11 @@ io.sockets.on('connection', function(socket) {
   });
   
   socket.on('send message', function(data) {
-    console.log(data); 
-    io.sockets.emit('new message', {msg: data}); 
+    var clients = io.sockets.clients();
+    console.log("-----------------\nclients:\n" + clients);
+    console.log("message data: "  + data); 
+    
+    io.sockets.emit('new message', {name: socket.nickname, msg: data}); 
   });  
 
  
