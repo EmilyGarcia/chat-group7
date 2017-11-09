@@ -1,6 +1,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url('../images/imgchat.png');
 }
 
 a {
@@ -13,6 +14,13 @@ a {
 #chat-area, #messageForm {
   margin: 0 auto;
   width: 100px;
+}
+
+#chat-box{
+	margin-left: auto;
+	margin-right: auto;
+	height:300px;
+	width:100px;
 }
 
 /* CSS talk bubble */

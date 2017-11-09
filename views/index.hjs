@@ -3,20 +3,32 @@
   <head>
     <title>{{ title }}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
 
   </head>
   <body>
-    <div id="chat-area"></div>
-    <form id="messageForm">
-      <label>Enter Message</label>
-      <textarea id="message" rows="2" cols="50"></textarea>
-      <br>
-      <input type="submit" value="Send Message">
-    </form>
+    <div id="chat-box" class=".container">
+      <div class="row">
+        <div class="col">
+          <div id="chat-area" class=".container"></div>
+          <form id="messageForm">
+            <textarea placeholder="Enter message" id="message" rows="2" cols="50"></textarea>
+            <br>
+            <input class=".btn .btn-primary" type="submit" value="Send Message">
+          </form>
+        </div>
+        <div class="col">
+          <div id="users"></div>
+        </div>
+      </div>
+    </div>
     <script>
-    
       document.addEventListener("DOMContentLoaded", function(event) { 
           var socket = io.connect(); 
           var logs = [];
@@ -36,11 +48,19 @@
             socket.emit('newUser', {id: sessionId, name: $('#name').val()});
             
             //alert(data.usrs);
+            printUsers(data.usrs);
             $chat.append('<div class="talk-bubble tri-right round btm-right"> <div id="name">' + data.name + '</div><div class="talktext">' + data.msg + '</div> </div>');
-            $chat.append('<div class = "rem_float"></div>')
+            $chat.append('<div class = "rem_float"></div>');
             logs.push(data.msg);
           }); 
       }); 
+      
+      function printUsers(users){
+        var $users = $("#users"); 
+        for (i = 0; i < users.length; i++) { 
+          $users.replaceWith('<li>'+users[i]+'</li>');
+        }
+      }
     </script>
 
 
