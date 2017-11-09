@@ -22,6 +22,7 @@ app.set('port', port);
 var server = http.createServer(app);
 var io = require('socket.io').listen(server); 
 var connections = [];
+var users = [];
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -34,20 +35,17 @@ server.on('listening', onListening);
 io.sockets.on('connection', function(socket) {
   connections.push(socket); 
   socket.nickname = "anon" + connections.length;
-  console.log(socket.nickname);
+  users.push(socket.nickname);
   console.log('Connected: %s sockets connected\n\n', connections.length); 
 
   socket.on("disconnect", function(data) {
      connections.splice(connections.indexOf(socket), 1); 
+     users.splice(users.indexOf(socket.nickname), 1);
      console.log('Disconnected: %s sockets connected', connections.length);
   });
   
   socket.on('send message', function(data) {
-    var clients = io.sockets.clients();
-    console.log("-----------------\nclients:\n" + clients);
-    console.log("message data: "  + data); 
-    
-    io.sockets.emit('new message', {name: socket.nickname, msg: data}); 
+    io.sockets.emit('new message', {name: socket.nickname, msg: data, usrs: users}); 
   });  
 
  

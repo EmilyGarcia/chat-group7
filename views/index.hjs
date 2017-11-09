@@ -35,6 +35,7 @@
             console.log('Connected ' + sessionId);
             socket.emit('newUser', {id: sessionId, name: $('#name').val()});
             
+            //alert(data.usrs);
             $chat.append('<div class="talk-bubble tri-right round btm-right"> <div id="name">' + data.name + '</div><div class="talktext">' + data.msg + '</div> </div>');
             $chat.append('<div class = "rem_float"></div>')
             logs.push(data.msg);
