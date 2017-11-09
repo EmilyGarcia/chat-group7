@@ -1,23 +1,44 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url('../images/imgchat.png');
 }
 
 a {
   color: #00B7FF;
 }
 
+.scroll {
+    overflow: scroll;
+}
+
 .rem_float { 
     clear:both;
 }
-#chat-area, #messageForm {
+
+#name {
+	font-weight: bold;
+	margin-left: 20px;
+}
+#messageForm {
+	margin: 0 auto;
+}
+#chat-area {
   margin: 0 auto;
-  width: 100px;
+  height: 500px;
+  width: 372px;
+}
+
+#chat-box{
+	margin-left: auto;
+	margin-right: auto;
+	height:300px;
+	width:100px;
 }
 
 /* CSS talk bubble */
 .talk-bubble {
-	margin: 0px 40px 40px 40px;
+	margin: 0px 40px 40px 160px;
   display: inline-block;
   position: relative;
 	width: 200px;
@@ -33,6 +54,7 @@ a {
 
 /* talk bubble contents */
 .talktext{
+	margin-left: 25px;
   padding: 1em;
 	text-align: left;
   line-height: 1.5em;
